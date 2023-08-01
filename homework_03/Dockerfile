@@ -1,11 +1,4 @@
-FROM ubuntu:latest
-ARG CACHEBUST=1
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install python3 -y
-RUN apt-get install python3-pip -y
-RUN pip3 install uvicorn fastapi
-
-COPY main.py /app/
-
+FROM python:3.9-buster
+COPY * ./app/
+RUN pip install -r ./app/requirements.txt
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
